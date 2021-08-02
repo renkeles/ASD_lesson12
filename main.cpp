@@ -1,10 +1,13 @@
 #include <iostream>
 
+
 typedef struct Node{
-    size_t key;
+    int key;
     struct Node* left;
     struct Node* right;
 } TreeNode;
+
+void boolChecker(int key);
 
 TreeNode* treeInsert(TreeNode *treeNode, size_t data){
     TreeNode* newNode;
@@ -166,6 +169,22 @@ void postOrderTravers(TreeNode* root){
     }
 }
 
+TreeNode* binarySearch(TreeNode* node, size_t _key){
+    TreeNode* newNode = nullptr;
+    newNode = new TreeNode;
+    newNode->key = -1;
+    if(node == nullptr){
+        return newNode;
+    }
+    if(node->key == _key){
+        return node;
+    }
+    if(node->key < _key){
+        return binarySearch(node->right, _key);
+    }
+    return binarySearch(node->left, _key);
+}
+
 
 void testTree(){
     TreeNode *tree = nullptr;
@@ -203,9 +222,16 @@ void testTree(){
     inOrderTravers(tree);
     std::cout << std::endl;
     postOrderTravers(tree);
+    std::cout << std::endl;
+    boolChecker(binarySearch(tree, 100)->key);
+    boolChecker(binarySearch(tree, 5)->key);
+    //std::cout << binarySearch(tree, 100)->key << std::endl;
     delete tree;
 }
 
+void boolChecker(int key) {
+    std::cout << ((key >= 0) ? "True" : "False") << std::endl;
+}
 
 
 void treeNodeList(){
@@ -233,9 +259,10 @@ void treeNodeList(){
 }
 
 int main() {
-    testTree();
+    //testTree();
     //treeNodeList();
 
 
     return 0;
 }
+
