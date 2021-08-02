@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <ctime>
 
 typedef struct Node{
     int key;
@@ -274,8 +275,10 @@ int max(int a, int b) {
 }
 
 void treeNodeList(){
-    const size_t count = 10;
-    const size_t size = 5;
+    const size_t count = 50;
+    const size_t size = 10000;
+    size_t balanced = 0;
+    double per = 100 / count;
     TreeNode** treeNodeList = new TreeNode*[count];
     setTreeNodeList(treeNodeList, count, size);
     /*
@@ -283,6 +286,13 @@ void treeNodeList(){
         boolChecker(isBalanced(treeNodeList[i]));
     }
      */
+
+    for(size_t i = 0; i < count; i++){
+        if(isBalanced(treeNodeList[i]) > 0){
+            balanced++;
+        }
+    }
+    std::cout << per * balanced << "% tree of " << count << " grand balanced" << std::endl;
 
     /*
     for(size_t i = 0; i < count; i++){
@@ -307,8 +317,16 @@ void treeNodeList(){
 }
 
 int main() {
-    testTree();
-    //treeNodeList();
+    srand(time(0u));
+
+    //testTree();
+    /*
+    for(size_t i = 0; i < 10; i++){
+        treeNodeList();
+    }
+     */
+    treeNodeList();
+
 
 
     return 0;
