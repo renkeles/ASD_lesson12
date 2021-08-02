@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <cmath>
 
 typedef struct Node{
     int key;
@@ -8,6 +8,12 @@ typedef struct Node{
 } TreeNode;
 
 void boolChecker(int key);
+
+int height(TreeNode *node);
+
+int max(int height, int height1);
+
+bool isBalanced(TreeNode* node);
 
 TreeNode* treeInsert(TreeNode *treeNode, size_t data){
     TreeNode* newNode;
@@ -226,43 +232,84 @@ void testTree(){
     boolChecker(binarySearch(tree, 100)->key);
     boolChecker(binarySearch(tree, 5)->key);
     //std::cout << binarySearch(tree, 100)->key << std::endl;
+    boolChecker(isBalanced(tree));
     delete tree;
 }
 
 void boolChecker(int key) {
-    std::cout << ((key >= 0) ? "True" : "False") << std::endl;
+    std::cout << ((key > 0) ? " True " : " False ") << std::endl;
+}
+
+void boolChecker(bool key) {
+    std::cout << ((key > 0) ? " True " : " False ") << std::endl;
 }
 
 
+
+
+bool isBalanced(TreeNode* node){
+    int left = 0;
+    int right = 0;
+    if(node == nullptr){
+        return 1;
+    }
+    left = height(node->left);
+    right = height(node->right);
+
+    if(abs(left - right) <= 1 && isBalanced(node->left) && isBalanced(node->right)){
+        return 1;
+    }
+    return 0;
+}
+
+int height(TreeNode *node) {
+    if(node == nullptr){
+        return 0;
+    }
+    return 1 + max(height(node->left), height(node->right));
+}
+
+int max(int a, int b) {
+    return (a >= b) ? a : b;
+}
+
 void treeNodeList(){
     const size_t count = 10;
-    const size_t size = 10;
+    const size_t size = 5;
     TreeNode** treeNodeList = new TreeNode*[count];
     setTreeNodeList(treeNodeList, count, size);
+    /*
+    for(size_t i = 0; i < count; i++){
+        boolChecker(isBalanced(treeNodeList[i]));
+    }
+     */
 
     /*
     for(size_t i = 0; i < count; i++){
         printTree(treeNodeList[i]);
+        boolChecker(isBalanced(treeNodeList[i]));
         std::cout << std::endl;
     }
     */
+
     /*
     for(size_t i = 0; i < count; i++){
         //preOrderTravers(treeNodeList[i]);
-        //inOrderTravers(treeNodeList[i]);
-        postOrderTravers(treeNodeList[i]);
+        inOrderTravers(treeNodeList[i]);
+        boolChecker(isBalanced(treeNodeList[i]));
+        //postOrderTravers(treeNodeList[i]);
         std::cout << std::endl;
     }
-    */
+     */
+
 
     delete[] treeNodeList;
 }
 
 int main() {
-    //testTree();
+    testTree();
     //treeNodeList();
 
 
     return 0;
 }
-
