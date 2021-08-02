@@ -127,6 +127,46 @@ bool remove(TreeNode* root, size_t key){
     return true;
 }
 
+void setTreeNodeList(TreeNode** treeNodeList, const size_t count, const size_t size){
+    for(size_t i = 0; i < count; i++){
+        treeNodeList[i] = new TreeNode;
+        treeNodeList[i] = nullptr;
+        //treeNodeList[i] = treeInsert(treeNodeList[i], (rand() % 100));
+        treeNodeList[i] = treeInsert(treeNodeList[i], 49);
+        for(size_t j = 1; j < size; j++){
+            treeInsert(treeNodeList[i], (rand() % 100));
+        }
+    }
+}
+
+void preOrderTravers(TreeNode* root){
+    if(root){
+        std::cout.width(5);
+        std::cout << root->key;
+        preOrderTravers(root->left);
+        preOrderTravers(root->right);
+    }
+}
+
+void inOrderTravers(TreeNode* root){
+    if(root){
+        inOrderTravers(root->left);
+        std::cout.width(5);
+        std::cout << root->key;
+        inOrderTravers(root->right);
+    }
+}
+
+void postOrderTravers(TreeNode* root){
+    if(root){
+        postOrderTravers(root->left);
+        postOrderTravers(root->right);
+        std::cout.width(5);
+        std::cout << root->key;
+    }
+}
+
+
 void testTree(){
     TreeNode *tree = nullptr;
     tree = treeInsert(tree, 10);
@@ -157,19 +197,16 @@ void testTree(){
     treeInsert(tree, 21);
     std::cout << std::endl;
     printTree(tree);
+    std::cout << std::endl;
+    preOrderTravers(tree);
+    std::cout << std::endl;
+    inOrderTravers(tree);
+    std::cout << std::endl;
+    postOrderTravers(tree);
     delete tree;
 }
 
-void setTreeNodeList(TreeNode** treeNodeList, const size_t count, const size_t size){
-    for(size_t i = 0; i < count; i++){
-        treeNodeList[i] = new TreeNode;
-        treeNodeList[i] = nullptr;
-        treeNodeList[i] = treeInsert(treeNodeList[i], (rand() % 100));
-        for(size_t j = 1; j < size; j++){
-            treeInsert(treeNodeList[i], (rand() % 100));
-        }
-    }
-}
+
 
 void treeNodeList(){
     const size_t count = 10;
@@ -181,6 +218,13 @@ void treeNodeList(){
     for(size_t i = 0; i < count; i++){
         printTree(treeNodeList[i]);
         std::cout << std::endl;
+    }
+    */
+    /*
+    for(size_t i = 0; i < count; i++){
+        //preOrderTravers(treeNodeList[i]);
+        //inOrderTravers(treeNodeList[i]);
+        postOrderTravers(treeNodeList[i]);
         std::cout << std::endl;
     }
     */
@@ -189,8 +233,9 @@ void treeNodeList(){
 }
 
 int main() {
-    //testTree();
-    treeNodeList();
+    testTree();
+    //treeNodeList();
+
 
     return 0;
 }
