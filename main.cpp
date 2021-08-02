@@ -45,13 +45,13 @@ void printTree(TreeNode *root){
             if(root->left){
                 printTree(root->left);
             }else{
-                std::cout << "null";
+                std::cout << "*";
             }
             std::cout << ",";
             if(root->right){
                 printTree(root->right);
             }else{
-                std::cout << "null";
+                std::cout << "*";
             }
             std::cout << ")";
         }
@@ -157,11 +157,40 @@ void testTree(){
     treeInsert(tree, 21);
     std::cout << std::endl;
     printTree(tree);
+    delete tree;
+}
+
+void setTreeNodeList(TreeNode** treeNodeList, const size_t count, const size_t size){
+    for(size_t i = 0; i < count; i++){
+        treeNodeList[i] = new TreeNode;
+        treeNodeList[i] = nullptr;
+        treeNodeList[i] = treeInsert(treeNodeList[i], (rand() % 100));
+        for(size_t j = 1; j < size; j++){
+            treeInsert(treeNodeList[i], (rand() % 100));
+        }
+    }
+}
+
+void treeNodeList(){
+    const size_t count = 10;
+    const size_t size = 10;
+    TreeNode** treeNodeList = new TreeNode*[count];
+    setTreeNodeList(treeNodeList, count, size);
+
+    /*
+    for(size_t i = 0; i < count; i++){
+        printTree(treeNodeList[i]);
+        std::cout << std::endl;
+        std::cout << std::endl;
+    }
+    */
+
+    delete[] treeNodeList;
 }
 
 int main() {
     //testTree();
+    treeNodeList();
 
     return 0;
 }
-
