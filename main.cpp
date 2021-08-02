@@ -17,7 +17,7 @@ TreeNode* treeInsert(TreeNode *treeNode, size_t data){
     if(treeNode == nullptr){
         treeNode = newNode;
     }else{
-        while (current->key != data){
+        while (1){
             parent = current;
             if(current->key > data){
                 current = current->left;
@@ -127,23 +127,41 @@ bool remove(TreeNode* root, size_t key){
     return true;
 }
 
-int main() {
-    TreeNode *tree = treeInsert(tree, 10);
+void testTree(){
+    TreeNode *tree = nullptr;
+    tree = treeInsert(tree, 10);
     treeInsert(tree, 8);
-    treeInsert(tree, 15);
-    treeInsert(tree, 6);
-    treeInsert(tree, 1);
     treeInsert(tree, 19);
-    treeInsert(tree, 2);
     treeInsert(tree, 5);
+    treeInsert(tree, 9);
+    treeInsert(tree, 16);
+    treeInsert(tree, 21);
     printTree(tree);
     std::cout << std::endl;
-    remove(tree, 6);
+    remove(tree, 5);
     printTree(tree);
     std::cout << std::endl;
-    remove(tree, 1);
+    remove(tree, 19);
     printTree(tree);
+    std::cout << std::endl;
+    remove(tree, 8);
+    printTree(tree);
+    treeInsert(tree, 10);
+    std::cout << std::endl;
+    printTree(tree);
+    treeInsert(tree, 8);
+    treeInsert(tree, 19);
+    treeInsert(tree, 5);
+    treeInsert(tree, 9);
+    treeInsert(tree, 16);
+    treeInsert(tree, 21);
+    std::cout << std::endl;
+    printTree(tree);
+}
 
+int main() {
+    //testTree();
 
     return 0;
 }
+
